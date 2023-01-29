@@ -9,6 +9,10 @@
 		<Authors>Gheith Alrawahi</Authors>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageId>Ghak.libraries.AppBase</PackageId>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Description>Common class for build ASP .NET CORE API</Description>
+		<RepositoryUrl>https://github.com/gheith3/Ghak.libraries/tree/master/Ghak.libraries.AppBase</RepositoryUrl>
+		<Title>App Base</Title>
 	</PropertyGroup>
 
 
