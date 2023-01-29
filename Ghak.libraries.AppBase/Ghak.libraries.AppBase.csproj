@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AnalysisLevel>none</AnalysisLevel>
+		<Version>1.0.0</Version>
+		<Authors>Gheith Alrawahi</Authors>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageId>Ghak.libraries.AppBase</PackageId>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.2" />
+		<PackageReference Include="Microsoft.OpenApi" Version="1.5.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
+		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.24" />
+	</ItemGroup>
+
+</Project>
