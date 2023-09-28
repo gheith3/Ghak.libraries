@@ -2,45 +2,29 @@
 using System.Security.Claims;
 using System.Text;
 using Ghak.libraries.AppBase.DTO;
+using Ghak.libraries.AppBase.Utils;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Ghak.libraries.AppBase.Extensions;
 
-public static class JwtSettingExtensions
+public static class AuthenticationSetting
 {
     /**
      * <summary>
      * This method is used to add jwt token to the application
      * </summary>
-     * <param name="builder">The WebApplicationBuilder</param>
+     * <param name="services"></param>
      * <returns>The WebApplicationBuilder</returns>
      */
-    public static WebApplicationBuilder JwtSetting(this WebApplicationBuilder builder)
+    public static IServiceCollection AddJwtAuthentication(this IServiceCollection services)
     {
-        var settingsSection = builder.Configuration.GetSection("JwtSettings");
-        if (settingsSection == null)
-        {
-            throw new Exception("JwtSettings section in appsettings.json is not configured");
-        }
-
-        var tokenLiveTime = settingsSection.GetValue<string>("TokenLiveTime");
-        var secret = settingsSection.GetValue<string>("Secret");
-        var issuer = settingsSection.GetValue<string>("Issuer");
-        var audience = settingsSection.GetValue<string>("Audience");
-
-        if (string.IsNullOrEmpty(tokenLiveTime)
-            || string.IsNullOrEmpty(secret)
-            || string.IsNullOrEmpty(issuer)
-            || string.IsNullOrEmpty(audience))
-        {
-            throw new Exception("JwtSettings should contain: TokenLiveTime, Secret, Issuer, Audience");
-        }
-
-        builder.Services.AddAuthentication(options =>
+        var secret =AppSettings.GetFromAppSetting("JwtSettings:Secret");
+        var issuer =AppSettings.GetFromAppSetting("JwtSettings:Issuer");
+        var audience =AppSettings.GetFromAppSetting("JwtSettings:Audience");
+        
+        services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -62,22 +46,27 @@ public static class JwtSettingExtensions
                 };
             });
 
-        return builder;
+        return services;
     }
     
    
-    public static LoginResponseDto Login(string audience, string tokenLiveTime, List<Claim> authClaims)
+    public static LoginResponseDto UserLogin(List<Claim> authClaims)
     {
         try
         {
+            var tokenLiveTime = AppSettings.GetFromAppSetting("JwtSettings:TokenLiveTime");
+            var issuer =AppSettings.GetFromAppSetting("JwtSettings:Issuer");
+            var audience =AppSettings.GetFromAppSetting("JwtSettings:Audience");
+
             var expires = DateTime.UtcNow.AddHours(Convert.ToInt32(tokenLiveTime));
             var claimIdentity = new ClaimsIdentity(authClaims);
             var tokenKey = Encoding.UTF8.GetBytes(audience);
-            
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature);
             
             var securityTokenDescriptor = new SecurityTokenDescriptor
             {
+                Audience = audience,
+                Issuer = issuer,
                 Subject = claimIdentity,
                 Expires = expires,
                 SigningCredentials = signingCredentials

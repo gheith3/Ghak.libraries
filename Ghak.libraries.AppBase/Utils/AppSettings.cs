@@ -8,7 +8,16 @@ public static class AppSettings
 
     public static void SetAppSetting(IConfiguration? configuration)
     {
-        _configuration = configuration;
+        try
+        {
+            Console.WriteLine("set app configuration");
+            _configuration = configuration;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"cant set app configuration {e.Message}");
+            throw;
+        }
     }
     
     public static string GetFromAppSetting(string key)
