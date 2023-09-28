@@ -11,11 +11,11 @@ public static class AppSettings
         _configuration = configuration;
     }
     
-    public static string GetAppSetting(string key)
+    public static string GetFromAppSetting(string key)
     {
         if (_configuration == null)
         {
-            throw new Exception($"SetAppSetting not call when app start");
+            throw new Exception($"SetAppSetting method not call when app start");
         }
         var val = _configuration.GetSection(key).Value;
         if (string.IsNullOrEmpty(val))

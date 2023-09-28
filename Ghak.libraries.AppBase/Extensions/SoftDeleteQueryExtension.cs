@@ -1,12 +1,21 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 using Ghak.libraries.AppBase.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Ghak.libraries.AppBase.Extensions;
 
 public static class SoftDeleteQueryExtension
 {
+    public static void ActivateModelSoftDelete(this ModelBuilder modelBuilder)
+    {
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            //other automated configurations left out
+            if (typeof(ISoftDelete).IsAssignableFrom(entityType.ClrType))
+                entityType.AddSoftDeleteQueryFilter();
+    }
+    
     public static void AddSoftDeleteQueryFilter(
         this IMutableEntityType entityData)
     {
