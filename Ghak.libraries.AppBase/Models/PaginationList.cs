@@ -1,10 +1,14 @@
-﻿namespace Ghak.libraries.AppBase.Common.Models;
+﻿namespace Ghak.libraries.AppBase.Models;
 
 public class PaginationList<T>
 {
     private const int MaxPageSize = 250;
     private int _pageSize;
-
+    public int CurrentPage { get; set; }
+    public int TotalItems { get; set; }
+    public IList<T> Items { get; set; } 
+    public int CurrentPageItems => Items.Count;
+    public int TotalPages { get; set; }
 
     public PaginationList()
     {
@@ -17,10 +21,7 @@ public class PaginationList<T>
         set => _pageSize = value > MaxPageSize ? MaxPageSize : value;
     }
 
-    public int CurrentPage { get; set; }
-    public int CurrentPageItems => Items.Count;
-    public int TotalItems { get; set; }
-    public int TotalPages { get; set; }
+  
 
     public int? NextPage
     {
@@ -57,5 +58,5 @@ public class PaginationList<T>
         }
     }
 
-    public IList<T> Items { get; set; }
+   
 }

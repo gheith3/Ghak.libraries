@@ -1,7 +1,9 @@
-﻿using Ghak.libraries.AppBase.Common.Models;
+﻿
+using Ghak.libraries.AppBase.Interfaces;
+using Ghak.libraries.AppBase.Models;
 using Ghak.libraries.AppBase.Utils;
 
-namespace Ghak.libraries.AppBase.Common.Interfaces;
+namespace Ghak.libraries.AppBase.Interfaces;
 
 public interface ICrudRepository<TModel, TDto, TModifyModel> : IPrepareData<TModel>
 {
@@ -10,7 +12,7 @@ public interface ICrudRepository<TModel, TDto, TModifyModel> : IPrepareData<TMod
 
     Task<ApiResponse<List<ListItem>>> List(string? searchQuery = null, Dictionary<string, object>? args = null);
     Task<ApiResponse<TDto>> Get(string id);
-    Task CheckModifyRecord(TModel record, TModifyModel request);
+    Task ModifyValidation(TModel record, TModifyModel request);
     Task<ApiResponse<TModifyModel>> Create(TModifyModel request);
     Task<ApiResponse<TModifyModel>> Update(TModifyModel request);
     Task<ApiResponse<TDto>> UpdateActivation(string id);

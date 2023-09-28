@@ -5,7 +5,7 @@ namespace Ghak.libraries.AppBase.Utils;
 public class PaginationListArgs
 {
     [Required] public int Page { get; set; } = 1;
-    [Required] public int ItemsPeerPage { get; set; } = 25;
+    [Required] public int ItemsPeerPage { get; set; } = 50;
     public string? SearchQuery { get; set; } = null;
     
     public string? OrderBy { get; set; } = "Id";

@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Ghak.libraries.AppBase.Common.Models;
+namespace Ghak.libraries.AppBase.Models;
 
 public class ApiResponse<T>
 {
-    [AllowNull] public T? Data { get; set; } = default;
+    public T? Data { get; set; } = default;
 
     [Required] public bool IsSuccess => Data != null;
 

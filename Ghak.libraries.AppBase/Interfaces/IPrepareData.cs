@@ -1,4 +1,4 @@
-﻿namespace Ghak.libraries.AppBase.Common.Interfaces;
+﻿namespace Ghak.libraries.AppBase.Interfaces;
 
 public interface IPrepareData<T>
 {

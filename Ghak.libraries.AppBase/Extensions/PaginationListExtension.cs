@@ -1,4 +1,4 @@
-﻿using Ghak.libraries.AppBase.Common.Models;
+﻿using Ghak.libraries.AppBase.Models;
 using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
 

@@ -1,4 +1,4 @@
-﻿namespace Ghak.libraries.AppBase.Common.Models;
+﻿namespace Ghak.libraries.AppBase.Exceptions;
 
 public class AppException : Exception
 {
@@ -12,6 +12,6 @@ public class AppException : Exception
         ErrorCode = code;
     }
 
-    public string ErrorTitle { get; set; }
-    public int ErrorCode { get; set; }
+    public string ErrorTitle { get; set; } = string.Empty;
+    public int ErrorCode { get; set; } 
 }
