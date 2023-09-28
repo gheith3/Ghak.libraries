@@ -13,6 +13,10 @@ public class BaseModel : ISoftDelete
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? DeletedAt { get; set; }
-    
-    public bool DeleteSoftly () => DeletedAt != DateTime.UtcNow;
+
+    public void DeleteSoftly()
+    {
+        IsActive = false;
+        DeletedAt = DateTime.UtcNow;
+    }
 }
