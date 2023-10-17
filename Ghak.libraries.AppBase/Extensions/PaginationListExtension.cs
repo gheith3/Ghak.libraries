@@ -54,8 +54,7 @@ public static class PaginationListExtension
     public static async Task<PaginationList<T>> PaginateAsync<T>(
         this IQueryable<T> query,
         int page,
-        int limit,
-        CancellationToken cancellationToken)
+        int limit)
         where T : class
     {
         var paged = new PaginationList<T>();
@@ -71,9 +70,9 @@ public static class PaginationListExtension
         paged.Items = await query
             .Skip(startRow)
             .Take(limit)
-            .ToListAsync(cancellationToken);
+            .ToListAsync();
 
-        paged.TotalItems = await query.CountAsync(cancellationToken);
+        paged.TotalItems = await query.CountAsync();
         paged.TotalPages = (int) Math.Ceiling(paged.TotalItems / (double) limit);
 
 

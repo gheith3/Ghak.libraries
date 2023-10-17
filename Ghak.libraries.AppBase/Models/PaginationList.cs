@@ -1,4 +1,6 @@
-﻿namespace Ghak.libraries.AppBase.Models;
+﻿using System.Net.NetworkInformation;
+
+namespace Ghak.libraries.AppBase.Models;
 
 public class PaginationList<T>
 {
@@ -58,5 +60,15 @@ public class PaginationList<T>
         }
     }
 
-   
+    public PaginationList<T> GetResponsePaginationList(List<T> items)
+    {
+        return new PaginationList<T>
+        {
+            CurrentPage = CurrentPage,
+            PageSize = PageSize,
+            TotalItems = TotalItems,
+            TotalPages = TotalPages,
+            Items = items,
+        };
+    }
 }

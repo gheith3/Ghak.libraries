@@ -18,4 +18,5 @@ public interface ICrudRepository<TModel, TDto, TModifyModel> : IPrepareData<TMod
     Task<ApiResponse<TDto>> UpdateActivation(string id);
     Task<ApiResponse<TModifyModel>> GetModifyRecord(string id);
     Task<ApiResponse<bool>> Delete(string id);
+    Task<bool> SaveDbChange();
 }
