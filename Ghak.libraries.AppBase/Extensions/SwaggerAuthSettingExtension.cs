@@ -9,13 +9,13 @@ public static class SwaggerAuthSettingExtension
 {
     public static IServiceCollection AppSwaggerDocSetting(this IServiceCollection services, bool isWithSecure = false)
     {
-        var title = AppSettings.GetFromAppSetting("SwaggerGen:Title");
-        var version = AppSettings.GetFromAppSetting("SwaggerGen:Version");
-        var description = AppSettings.GetFromAppSetting("SwaggerGen:Description");
-        var contactName = AppSettings.GetFromAppSetting("SwaggerGen:ContactName");
-        var contactEmail = AppSettings.GetFromAppSetting("SwaggerGen:ContactEmail");
-        var licenseName = AppSettings.GetFromAppSetting("SwaggerGen:LicenseName");
-        var licenseUrl = AppSettings.GetFromAppSetting("SwaggerGen:LicenseUrl");
+        var title = AppSettingsEntrance.GetFromAppSetting("SwaggerGen:Title");
+        var version = AppSettingsEntrance.GetFromAppSetting("SwaggerGen:Version");
+        var description = AppSettingsEntrance.GetFromAppSetting("SwaggerGen:Description");
+        var contactName = AppSettingsEntrance.GetFromAppSetting("SwaggerGen:ContactName");
+        var contactEmail = AppSettingsEntrance.GetFromAppSetting("SwaggerGen:ContactEmail");
+        var licenseName = AppSettingsEntrance.GetFromAppSetting("SwaggerGen:LicenseName");
+        var licenseUrl = AppSettingsEntrance.GetFromAppSetting("SwaggerGen:LicenseUrl");
 
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(gen =>

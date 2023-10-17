@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Ghak.libraries.AppBase.Utils;
 
-public static class AppSettings
+public static class AppSettingsEntrance
 {
     private static IConfiguration? _configuration;
 

@@ -60,9 +60,9 @@ public class PaginationList<T>
         }
     }
 
-    public PaginationList<T> GetResponsePaginationList(List<T> items)
+    public PaginationList<TS> GetResponsePaginationList<TS>(List<TS> items)
     {
-        return new PaginationList<T>
+        return new PaginationList<TS>
         {
             CurrentPage = CurrentPage,
             PageSize = PageSize,

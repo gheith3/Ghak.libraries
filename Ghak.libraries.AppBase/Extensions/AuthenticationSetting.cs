@@ -20,9 +20,9 @@ public static class AuthenticationSetting
      */
     public static IServiceCollection AddJwtAuthentication(this IServiceCollection services)
     {
-        var secret =AppSettings.GetFromAppSetting("JwtSettings:Secret");
-        var issuer =AppSettings.GetFromAppSetting("JwtSettings:Issuer");
-        var audience =AppSettings.GetFromAppSetting("JwtSettings:Audience");
+        var secret =AppSettingsEntrance.GetFromAppSetting("JwtSettings:Secret");
+        var issuer =AppSettingsEntrance.GetFromAppSetting("JwtSettings:Issuer");
+        var audience =AppSettingsEntrance.GetFromAppSetting("JwtSettings:Audience");
         
         services.AddAuthentication(options =>
             {
@@ -54,9 +54,9 @@ public static class AuthenticationSetting
     {
         try
         {
-            var tokenLiveTime = AppSettings.GetFromAppSetting("JwtSettings:TokenLiveTime");
-            var issuer =AppSettings.GetFromAppSetting("JwtSettings:Issuer");
-            var audience =AppSettings.GetFromAppSetting("JwtSettings:Audience");
+            var tokenLiveTime = AppSettingsEntrance.GetFromAppSetting("JwtSettings:TokenLiveTime");
+            var issuer =AppSettingsEntrance.GetFromAppSetting("JwtSettings:Issuer");
+            var audience =AppSettingsEntrance.GetFromAppSetting("JwtSettings:Audience");
 
             var expires = DateTime.UtcNow.AddHours(Convert.ToInt32(tokenLiveTime));
             var claimIdentity = new ClaimsIdentity(authClaims);
