@@ -1,12 +1,14 @@
 using System.Reflection;
 using Ghak.libraries.AppBase.Utils;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 namespace Ghak.libraries.AppBase.Extensions;
 
-public static class SwaggerAuthSettingExtension
+public static class SwaggerSettingsExtension
 {
+    
     public static IServiceCollection AppSwaggerDocSetting(this IServiceCollection services, bool isWithSecure = false)
     {
         var title = AppSettingsEntrance.GetFromAppSetting("SwaggerGen:Title");
@@ -21,7 +23,7 @@ public static class SwaggerAuthSettingExtension
         services.AddSwaggerGen(gen =>
         {
             gen.EnableAnnotations();
-            gen.SwaggerDoc($"{title} {version}", new OpenApiInfo
+            gen.SwaggerDoc(version, new OpenApiInfo
             {
                 Title = title,
                 Version = version,
@@ -68,11 +70,21 @@ public static class SwaggerAuthSettingExtension
                     }
                 });
             }
-
             gen.SchemaFilter<XEnumNamesSchemaFilter>();
-            var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            gen.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
         });
         return services;
+    }
+    
+    public static WebApplication UseAppSwaggerUI(this WebApplication app)
+    {
+        string title = AppSettingsEntrance.GetFromAppSetting("SwaggerGen:Title");
+        string version = AppSettingsEntrance.GetFromAppSetting("SwaggerGen:Version");
+
+        app.UseSwagger();
+        app.UseSwaggerUI(c =>
+        {
+            c.SwaggerEndpoint($"/swagger/{version}/swagger.json", title);
+        });
+        return app;
     }
 }
