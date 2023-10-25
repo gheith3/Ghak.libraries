@@ -57,10 +57,12 @@ public static class AuthenticationSetting
             var tokenLiveTime = AppSettingsEntrance.GetFromAppSetting("JwtSettings:TokenLiveTime");
             var issuer =AppSettingsEntrance.GetFromAppSetting("JwtSettings:Issuer");
             var audience =AppSettingsEntrance.GetFromAppSetting("JwtSettings:Audience");
+            var secret =AppSettingsEntrance.GetFromAppSetting("JwtSettings:Secret");
 
             var expires = DateTime.UtcNow.AddHours(Convert.ToInt32(tokenLiveTime));
             var claimIdentity = new ClaimsIdentity(authClaims);
-            var tokenKey = Encoding.UTF8.GetBytes(audience);
+            var tokenKey = Encoding.UTF8.GetBytes(secret);
+            
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature);
             
             var securityTokenDescriptor = new SecurityTokenDescriptor

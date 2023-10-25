@@ -1,4 +1,5 @@
 ﻿
+using Ghak.libraries.AppBase.Exceptions;
 using Ghak.libraries.AppBase.Interfaces;
 using Ghak.libraries.AppBase.Models;
 using Ghak.libraries.AppBase.Utils;
@@ -19,4 +20,6 @@ public interface ICrudRepository<TModel, TDto, TModifyModel> : IPrepareData<TMod
     Task<ApiResponse<TModifyModel>> GetModifyRecord(string id);
     Task<ApiResponse<bool>> Delete(string id);
     Task<bool> SaveDbChange();
+
+    
 }

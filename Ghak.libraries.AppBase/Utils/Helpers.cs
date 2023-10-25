@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Ghak.libraries.AppBase.Exceptions;
 
 namespace Ghak.libraries.AppBase.Utils;
 
@@ -60,5 +61,15 @@ public static partial class Helpers
         return match.Success
             ? $"@{username}"
             : null;
+    }
+    
+    public  static void CheckRequestId(string id)
+    {
+        if (string.IsNullOrEmpty(id))
+        {
+            throw new AppException("Id Is Required",
+                404,
+                nameof(id));
+        }
     }
 }
