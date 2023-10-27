@@ -1,8 +1,8 @@
 ﻿namespace Ghak.libraries.AppBase.Models;
 
-public class ListItem
+public class ListItem<T>
 {
-    public string Id { get; set; } = string.Empty;
-    public string Value { get; set; } = string.Empty;
+    public T Id { get; set; }
+    public string Content { get; set; } = string.Empty;
     public Dictionary<string, object> Data { get; set; } = new();
 }

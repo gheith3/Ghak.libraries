@@ -1,6 +1,8 @@
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Ghak.libraries.AppBase.Exceptions;
+using Ghak.libraries.AppBase.Models;
+using Humanizer;
 
 namespace Ghak.libraries.AppBase.Utils;
 
@@ -71,5 +73,17 @@ public static partial class Helpers
                 404,
                 nameof(id));
         }
+    }
+    
+    public static List<ListItem<int>> GetEnumAsListItems<TEnum>() 
+        where TEnum : Enum
+    {
+        return Enum.GetValues(typeof(TEnum))
+            .Cast<TEnum>()
+            .Select(r => new ListItem<int>
+            {
+                Id = Convert.ToInt32(r),
+                Content = r.Humanize(LetterCasing.Title)
+            }).ToList();
     }
 }
