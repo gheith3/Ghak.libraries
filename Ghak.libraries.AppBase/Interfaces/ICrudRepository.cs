@@ -1,4 +1,5 @@
 ﻿
+using Ghak.libraries.AppBase.DTO;
 using Ghak.libraries.AppBase.Exceptions;
 using Ghak.libraries.AppBase.Interfaces;
 using Ghak.libraries.AppBase.Models;
@@ -6,7 +7,9 @@ using Ghak.libraries.AppBase.Utils;
 
 namespace Ghak.libraries.AppBase.Interfaces;
 
-public interface ICrudRepository<TModel, TDto, TModifyModel> : IPrepareData<TModel>
+public interface ICrudRepository<TModel, TDto, TModifyModel, TToModifyModel> 
+    : IPrepareData<TModel> 
+    where TToModifyModel : BaseToModifyDto<TModifyModel>
 {
     Task<ApiResponse<PaginationList<TDto>>> Pagination(PaginationListArgs request,
         CancellationToken cancellationToken);
@@ -17,9 +20,7 @@ public interface ICrudRepository<TModel, TDto, TModifyModel> : IPrepareData<TMod
     Task<ApiResponse<TModifyModel>> Create(TModifyModel request);
     Task<ApiResponse<TModifyModel>> Update(TModifyModel request);
     Task<ApiResponse<TDto>> UpdateActivation(string id);
-    Task<ApiResponse<TModifyModel>> GetModifyRecord(string id);
+    Task<ApiResponse<TToModifyModel>> InitRecordModification(string? id = null);
     Task<ApiResponse<bool>> Delete(string id);
     Task<bool> SaveDbChange();
-
-    
 }

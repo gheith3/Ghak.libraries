@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<AnalysisLevel>none</AnalysisLevel>
-		<Version>2.0.5</Version>
+		<Version>2.0.6</Version>
 		<Authors>Gheith Alrawahi</Authors>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageId>Ghak.libraries.AppBase</PackageId>
