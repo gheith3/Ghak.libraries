@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Ghak.libraries.AppBase.DTO;
 using Ghak.libraries.AppBase.Utils;
@@ -43,6 +44,7 @@ public static class AuthenticationSetting
                     ValidateAudience = true,
                     ValidateLifetime = false,
                     ValidateIssuerSigningKey = true,
+                    ClockSkew = TimeSpan.Zero,
                 };
             });
 
@@ -55,11 +57,13 @@ public static class AuthenticationSetting
         try
         {
             var tokenLiveTime = AppSettingsEntrance.GetFromAppSetting("JwtSettings:TokenLiveTime");
+            var refreshTokenLiveTime = AppSettingsEntrance.GetFromAppSetting("JwtSettings:RefreshTokenLiveTime");
             var issuer =AppSettingsEntrance.GetFromAppSetting("JwtSettings:Issuer");
             var audience =AppSettingsEntrance.GetFromAppSetting("JwtSettings:Audience");
             var secret =AppSettingsEntrance.GetFromAppSetting("JwtSettings:Secret");
 
-            var expires = DateTime.UtcNow.AddHours(Convert.ToInt32(tokenLiveTime));
+            var tokenExpires = DateTime.UtcNow.AddHours(Convert.ToInt32(tokenLiveTime));
+            var refreshTokenExpires = DateTime.UtcNow.AddHours(Convert.ToInt32(refreshTokenLiveTime));
             var claimIdentity = new ClaimsIdentity(authClaims);
             var tokenKey = Encoding.UTF8.GetBytes(secret);
             
@@ -70,7 +74,7 @@ public static class AuthenticationSetting
                 Audience = audience,
                 Issuer = issuer,
                 Subject = claimIdentity,
-                Expires = expires,
+                Expires = tokenExpires,
                 SigningCredentials = signingCredentials
             };
             
@@ -81,7 +85,9 @@ public static class AuthenticationSetting
             return new LoginResponseDto
             {
                 Token = token,
-                ExpiredAt = expires,
+                ExpiredAt = tokenExpires,
+                RefreshToken = GenerateRefreshToken(),
+                RefreshTokenExpiredAt = refreshTokenExpires
             };
         }
         catch (Exception e)
@@ -90,5 +96,15 @@ public static class AuthenticationSetting
         }
         
         throw new Exception("Error in generating token");
+    }
+    
+    
+
+    private static string GenerateRefreshToken()
+    {
+        var randomNumber = new byte[64];
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+        return Convert.ToBase64String(randomNumber);
     }
 }
