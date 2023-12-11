@@ -10,7 +10,7 @@ public interface ICrudRepository<TKey, TModel, TDto, in TModifyModel, TToModifyM
 {
     Task<ApiResponse<PaginationList<TDto>>> Pagination(PaginationListArgs request);
 
-    Task<ApiResponse<List<ListItem<TKey>>>> List(string? searchQuery = null, Dictionary<string, object>? args = null);
+    Task<ApiResponse<List<ListItem<TKey>>>> List(ListArgs request);
     Task<ApiResponse<TDto>> Get(TKey id);
     Task ModifyValidation(TModel record, TModifyModel request);
     Task<ApiResponse<TToModifyModel>> PrepareModification(TKey? id);
