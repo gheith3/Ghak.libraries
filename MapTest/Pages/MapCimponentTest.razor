@@ -1,0 +1,116 @@
+﻿
+
+<GoogleMap @ref="@googleMap"
+           AddMarkOnDoubleClick="true"
+           OnDoubleClick="@OnDoubleClick"
+           OnBoundsChange="@OnBoundsChange"
+           MarkMultipleLocations="false"/>
+
+<button class="btn btn-success" @onclick="@AddMarker">
+    add
+</button>
+
+<button class="btn btn-success" @onclick="@SetInitBounds">
+    Init Bounds
+</button>
+
+<button class="btn btn-success" @onclick="@ClearMarkers">
+    Clear Markers
+</button>
+
+<div>
+    <input @bind="latitude" type="number" step="any" placeholder="Latitude"/>
+    <input @bind="longitude" type="number" step="any" placeholder="Longitude"/>
+    <input @bind="zoom" type="number" placeholder="Zoom (optional)"/>
+    <button @onclick="MoveMap">Move Map</button>
+</div>
+
+<div class="row" style="height: 250px; overflow-x: hidden; overflow-y: scroll;">
+    <div class="col-12">
+        <h3>Init Bounds</h3>
+       @if (InitBounds is not null)
+        {
+            <div>
+                <div>NorthEast: @InitBounds?.NorthEast.Latitude, @InitBounds?.NorthEast.Longitude</div>
+                <div>SouthWest: @InitBounds?.SouthWest.Latitude, @InitBounds?.SouthWest.Longitude</div>
+            </div>
+        }
+    </div>
+    <div class="col-6">
+        <h3>Locations</h3>
+        <ul>
+            @foreach (var location in Locations)
+            {
+                <li>@location.Latitude, @location.Longitude</li>
+            }
+        </ul>
+    </div>
+    <div class="col-6">
+        <h3>Bounds</h3>
+        <ul>
+            @foreach (var bounds in Bounds)
+            {
+                <li>
+                    <div>NorthEast: @bounds.NorthEast.Latitude, @bounds.NorthEast.Longitude</div>
+                    <div>SouthWest: @bounds.SouthWest.Latitude, @bounds.SouthWest.Longitude</div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+@code
+{
+    private GoogleMap googleMap;
+    private List<GoogleMapLocation> Locations { get; set; } = [];
+    private GoogleMapBounds? InitBounds { get; set; }
+    private List<GoogleMapBounds> Bounds { get; set; } = [];
+    private double latitude;
+    private double longitude;
+    private int? zoom;
+
+    private async Task SetInitBounds()
+    {
+            InitBounds = await googleMap.GetMapBounds();
+    }
+    
+    private async Task ClearMarkers()
+    {
+         await googleMap.ClearAllMarks();
+    }
+
+    private void OnDoubleClick(GoogleMapLocation location)
+    {
+        Locations.Add(location);
+    }
+
+    private void OnBoundsChange(GoogleMapBounds bounds)
+    {
+        Bounds.Add(bounds);
+    }
+
+    private async Task AddMarker()
+    {
+        await googleMap.AddMarker(new GoogleMapLocation("223", "test 1", 23.5880, 58.3829, "<p>title</p>"), 18);
+    }
+    
+    private async Task AddMarkers()
+    {
+        List<GoogleMapLocation> locations =
+        [
+            new GoogleMapLocation("223", "test 1", 23.5880, 58.3829, "<p>title</p>"),
+        ];
+        //locations.ForEach(RenderCard);
+        await googleMap.UpdateMarkers(locations, true);
+    }
+    
+    // private async void RenderCard(GoogleMapLocation location)
+    // {
+    //     location.InfoWindowHtml = await MapWindowBlazorRenderer.RenderComponent<MapCard>(new Dictionary<string, object?> { { "Location", location } });
+    // }
+
+    private async Task MoveMap()
+    {
+        await googleMap.MoveMapTo(new(latitude, longitude), zoom);
+    }
+}

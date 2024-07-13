@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ghak.libraries.AppBase", "Ghak.libraries.AppBase\Ghak.libraries.AppBase.csproj", "{FC5AD5AD-2BC9-4323-BDB5-17852042ADE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ghak.libraries.AppBase", "Ghak.libraries.AppBase\Ghak.libraries.AppBase.csproj", "{FC5AD5AD-2BC9-4323-BDB5-17852042ADE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ghak.libraries.GoogleMap", "Ghak.libraries.GoogleMap\Ghak.libraries.GoogleMap.csproj", "{27570F08-1E9E-469F-B03D-994ACDC7747C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapTest", "MapTest\MapTest.csproj", "{450CC663-08E1-44C9-9124-FFF0A09F0954}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{FC5AD5AD-2BC9-4323-BDB5-17852042ADE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC5AD5AD-2BC9-4323-BDB5-17852042ADE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC5AD5AD-2BC9-4323-BDB5-17852042ADE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27570F08-1E9E-469F-B03D-994ACDC7747C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27570F08-1E9E-469F-B03D-994ACDC7747C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27570F08-1E9E-469F-B03D-994ACDC7747C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27570F08-1E9E-469F-B03D-994ACDC7747C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{450CC663-08E1-44C9-9124-FFF0A09F0954}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{450CC663-08E1-44C9-9124-FFF0A09F0954}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{450CC663-08E1-44C9-9124-FFF0A09F0954}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{450CC663-08E1-44C9-9124-FFF0A09F0954}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
